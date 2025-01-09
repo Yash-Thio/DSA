@@ -14,18 +14,26 @@ struct Node
     }
 };
 
-void postOrderTraversal(Node *root, vector<int> &v, bool b)
+bool findPath(Node *root, vector<int> &path, int target)
 {
     if (root == nullptr)
     {
-        return;
+        return false;
+    }
+    path.push_back(root->data);
+
+    if (root->data == target)
+    {
+        return true;
     }
 
-    postOrderTraversal(root->left, v, true);
+    if (findPath(root->left, path, target) || findPath(root->right, path, target))
+    {
+        return true;
+    }
 
-    postOrderTraversal(root->right, v, true);
-
-    cout << root->data << " ";
+    path.pop_back();
+    return false;
 }
 
 int main()
@@ -36,9 +44,21 @@ int main()
     root->left->left = new Node(4);
     root->left->right = new Node(5);
 
-    cout << "Post-order traversal: ";
-    vector<int> v;
-    postOrderTraversal(root, v, true);
+    int val = 5;
+
+    vector<int> path;
+    if (findPath(root, path, val))
+    {
+        cout << "Path from root to " << val << ": ";
+        for (int i : path)
+        {
+            cout << i << " ";
+        }
+    }
+    else
+    {
+        cout << "Node not found in tree";
+    }
     cout << endl;
 
     return 0;
