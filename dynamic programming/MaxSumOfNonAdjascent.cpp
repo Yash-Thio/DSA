@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,7 +7,7 @@ int solveUtil(int ind, vector<int>& arr, vector<int>& dp) {
 
     if (ind == 0) 
         return arr[ind];
-    if (ind < 0)  
+    if (ind < 0)
         return 0;
 
     int pick = arr[ind] + solveUtil(ind - 2, arr, dp);
